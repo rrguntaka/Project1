@@ -17,6 +17,14 @@ class Position:
     @property
     def longitude(self):
         return self._longitude
+    
+    def __eq__(self, other):
+        if not isinstance(other, type(self)):
+            return NotImplemented
+        return self.longitude == other.longitude and self.latitude == other.latitude
+    
+    def __hash__(self):
+        return int(self.longitude +self.latitude)
 
 class EarthPostion(Position):
     pass

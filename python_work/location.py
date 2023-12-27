@@ -36,24 +36,17 @@ def auto_repr(cls):
 
     return cls
 
+from dataclasses import dataclass
+from position import Position, EarthPostion
 
-@auto_repr
+@dataclass(eq=True, frozen=True)
 class Location:
+    name:str
+    position: Position
 
-    def __init__(self, name, position):
-        self._name = name
-        self._position = position
-    
-    @property
-    def name(self):
-        return self._name
-    
-    @property
-    def position(self):
-        return self._position
-        
-    def __str__(self):
-        return self.name
+    def __post_init__(self):
+        if self.name == "":
+            raise ValueError("Location name cannot be empty!")
 
 
 hong_kong = Location("Hong Kong", EarthPostion(22.29, 114.16))
